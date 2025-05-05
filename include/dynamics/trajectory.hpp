@@ -80,6 +80,48 @@ struct Trajectory
       state.time += offset;
     }
   }
+template<typename Model>
+  void
+  infer_steering_angles( const Model& model )
+  {
+    if( states.size() < 2 )
+      return;
+
+    for( size_t i = 0; i < states.size() - 1; ++i )
+    {
+      VehicleStateDynamic&       s0 = states[i];
+      const VehicleStateDynamic& s1 = states[i + 1];
+
+      double dt = s1.time - s0.time;
+      if( dt <= 0.0 )
+        continue;
+
+      // Approximate yaw rate
+      double dyaw     = adore::math::normalize_angle( s1.yaw_angle - s0.yaw_angle );
+      double yaw_rate = dyaw / dt;
+
+      // Estimate steering angle using the inverse of the kinematic bicycle model:
+      // yaw_rate = v * tan(steering_angle) / wheelbase
+      if( std::abs( s0.vx ) > 1e-2 ) // avoid division by zero
+      {
+        double steering_angle = std::atan2( yaw_rate * model.params.wheelbase, s0.vx );
+        s0.steering_angle     = steering_angle;
+
+        // Approximate steering rate
+        double next_steering_angle = std::atan2( ( s1.yaw_rate * model.params.wheelbase ), s1.vx );
+        s0.steering_rate           = ( next_steering_angle - steering_angle ) / dt;
+      }
+      else
+      {
+        s0.steering_angle = 0.0;
+        s0.steering_rate  = 0.0;
+      }
+    }
+
+    // Set last state equal to previous one (or zero) for consistency
+    states.back().steering_angle = states[states.size() - 2].steering_angle;
+    states.back().steering_rate  = 0.0;
+  }
 };
 
 
