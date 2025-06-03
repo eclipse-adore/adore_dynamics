@@ -39,6 +39,8 @@ struct PhysicalVehicleParameters
   double steering_ratio              = 1.0;
   double steering_angle_max          = 0.7;
   double steering_angle_min          = -0.7;
+  double acceleration_min            = 2.0;
+  double acceleration_max            = -2.0;
   double cornering_stiffness         = 63000.0;
   double brake_balance_front         = 0.6;
   double acceleration_balance_front  = 0.4;
@@ -75,6 +77,8 @@ struct PhysicalVehicleParameters
     steering_ratio              = j.at( "steering_ratio" ).get<double>();
     steering_angle_max          = j.at( "steering_angle_max" ).get<double>();
     steering_angle_min          = j.at( "steering_angle_min" ).get<double>();
+    acceleration_max            = j.at( "acceleration_max" ).get<double>();
+    acceleration_min            = j.at( "acceleration_min" ).get<double>();
     cornering_stiffness         = j.at( "cornering_stiffness" ).get<double>();
     brake_balance_front         = j.at( "brake_balance_front" ).get<double>();
     acceleration_balance_front  = j.at( "acceleration_balance_front" ).get<double>();
