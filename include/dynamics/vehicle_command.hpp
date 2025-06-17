@@ -28,7 +28,7 @@ struct VehicleCommandLimits
 
   double max_steering_angle = 0.58;
   double max_acceleration   = 1.0;
-  double min_acceleration   = -1.0;
+  double min_acceleration   = -2.0;
 };
 
 struct VehicleCommand
