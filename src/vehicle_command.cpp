@@ -38,7 +38,7 @@ VehicleCommand::from_eigen_vector( const Eigen::Vector2d& vec )
 
 // Member function to clamp command within given limits
 void
-VehicleCommand::clamp_within_limits( const PhysicalVehicleParameters& limits )
+VehicleCommand::clamp_within_limits( const PhysicalVehicleParameters& params )
 {
   // Check if acceleration is NaN, fallback to 0 if NaN
   if( std::isnan( acceleration ) )
@@ -46,8 +46,8 @@ VehicleCommand::clamp_within_limits( const PhysicalVehicleParameters& limits )
     acceleration = 0.0; // Default value for NaN acceleration
   }
 
-  // Clamp acceleration within limits
-  acceleration = std::clamp( acceleration, limits.acceleration_min, limits.acceleration_max );
+  // Clamp acceleration within params
+  acceleration = std::clamp( acceleration, params.acceleration_min, params.acceleration_max );
 
   // Check if steering_angle is NaN, fallback to 0 if NaN
   if( std::isnan( steering_angle ) )
@@ -55,8 +55,8 @@ VehicleCommand::clamp_within_limits( const PhysicalVehicleParameters& limits )
     steering_angle = 0.0; // Default value for NaN steering angle
   }
 
-  // Clamp steering_angle within limits
-  steering_angle = std::clamp( steering_angle, -limits.steering_angle_min, limits.steering_angle_max );
+  // Clamp steering_angle within params
+  steering_angle = std::clamp( steering_angle, params.steering_angle_min, params.steering_angle_max );
 }
 
 
