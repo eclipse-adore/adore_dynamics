@@ -88,6 +88,12 @@ struct PhysicalVehicleParameters
   }
 
   PhysicalVehicleParameters() {}; // default values
+
+  double
+  get_total_length() const
+  {
+    return rear_border_to_rear_axle + wheelbase + front_axle_to_front_border;
+  }
 };
 
 } // namespace dynamics
