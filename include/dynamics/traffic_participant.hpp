@@ -75,6 +75,7 @@ struct TrafficParticipant
   std::optional<math::Point2d> goal_point = std::nullopt; // Goal point
   std::optional<int>           v2x_id     = std::nullopt; // V2X ID
   std::optional<Trajectory>    trajectory = std::nullopt; // Predicted or planned trajectory
+  std::optional<Trajectory>    mrm_trajectory = std::nullopt; // mrm trajectory
   std::optional<map::Route>    route      = std::nullopt; // Route information
 
   // calculate participant corners
