@@ -47,7 +47,7 @@ void
 TrafficParticipantSet::update_traffic_participants( const TrafficParticipant& new_participant_data )
 {
   // check if participant is within the validity area
-  if( validity_area && !validity_area->point_inside( new_participant_data.state ) )
+  if( validity_area && !validity_area->point_inside( new_participant_data.state ) ) // Temporarily disabled untill further decision are made
   {
     return;
   }
