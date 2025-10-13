@@ -69,6 +69,17 @@ struct Trajectory
     return interpolate_states_linear( state1, state2, alpha );
   }
 
+  friend std::ostream&
+  operator<<( std::ostream& os, const Trajectory& trajectory )
+  {
+    os << "Trajectory(label=\"" << trajectory.label << "\", size=" << trajectory.states.size() << ")\n";
+    for( const auto& s : trajectory.states )
+    {
+      os << s << '\n'; // relies on VehicleStateDynamic::operator<<
+    }
+    return os;
+  }
+
   void
   adjust_start_time( double start_time )
   {
