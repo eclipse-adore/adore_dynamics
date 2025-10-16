@@ -9,11 +9,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Dependencies
 find_package(ament_cmake REQUIRED)
-find_package(osqp REQUIRED)
-find_package(Eigen3 REQUIRED)
-find_package(OsqpEigen REQUIRED)
+
 find_package(OpenDrive REQUIRED)
-find_package(MultiAgentSolver REQUIRED)
 find_package(adore_math REQUIRED)
 find_package(adore_map REQUIRED)
 # find_package(nlohmann_json3 REQUIRED)
@@ -38,11 +35,7 @@ target_include_directories(${PROJECT_NAME}
 
 # Link dependencies (PRIVATE visibility preferred)
 target_link_libraries(${PROJECT_NAME}
-  PRIVATE
-    osqp::osqp
-    OsqpEigen::OsqpEigen
-    OpenDrive::OpenDrive
-    MultiAgentSolver::MultiAgentSolver
+  PUBLIC
     adore_math::adore_math
     adore_map::adore_map
 )
@@ -69,7 +62,7 @@ install(EXPORT export_${PROJECT_NAME}
 
 # ament exports for ROS 2 packages
 ament_export_include_directories(include)
-ament_export_dependencies(osqp OsqpEigen OpenDrive MultiAgentSolver)
+ament_export_dependencies( adore_math adore_map )
 ament_export_targets(export_${PROJECT_NAME})
 
 ament_package()
