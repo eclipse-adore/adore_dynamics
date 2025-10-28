@@ -1,14 +1,16 @@
 /********************************************************************************
- * Copyright (C) 2017-2025 German Aerospace Center (DLR).
- * Eclipse ADORe, Automated Driving Open Research https://eclipse.org/adore
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation
+ *
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * https://www.eclipse.org/legal/epl-2.0
  *
  * SPDX-License-Identifier: EPL-2.0
- *
- * Contributors:
- *    Sanath Himasekhar Konthala
- *    Giovanni Lucente
- *    Marko Mizdrak
  ********************************************************************************/
+
 #pragma once
 #include "adore_map/route.hpp"
 #include "adore_math/angles.h"
@@ -75,6 +77,7 @@ struct TrafficParticipant
   std::optional<math::Point2d> goal_point = std::nullopt; // Goal point
   std::optional<int>           v2x_id     = std::nullopt; // V2X ID
   std::optional<Trajectory>    trajectory = std::nullopt; // Predicted or planned trajectory
+  std::optional<Trajectory>    mrm_trajectory = std::nullopt; // mrm trajectory
   std::optional<map::Route>    route      = std::nullopt; // Route information
 
   // calculate participant corners

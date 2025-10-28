@@ -1,14 +1,16 @@
 /********************************************************************************
- * Copyright (C) 2017-2025 German Aerospace Center (DLR).
- * Eclipse ADORe, Automated Driving Open Research https://eclipse.org/adore
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation
+ *
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * https://www.eclipse.org/legal/epl-2.0
  *
  * SPDX-License-Identifier: EPL-2.0
- *
- * Contributors:
- *    Sanath Himasekhar Konthala
- *    Giovanni Lucente
- *    Marko Mizdrak
  ********************************************************************************/
+
 #include "dynamics/traffic_participant.hpp"
 
 namespace adore
@@ -45,7 +47,7 @@ void
 TrafficParticipantSet::update_traffic_participants( const TrafficParticipant& new_participant_data )
 {
   // check if participant is within the validity area
-  if( validity_area && !validity_area->point_inside( new_participant_data.state ) )
+  if( validity_area && !validity_area->point_inside( new_participant_data.state ) ) // Temporarily disabled untill further decision are made
   {
     return;
   }

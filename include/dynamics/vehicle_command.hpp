@@ -1,15 +1,17 @@
-#pragma once
-
 /********************************************************************************
- * Copyright (C) 2017-2025 German Aerospace Center (DLR).
- * Eclipse ADORe, Automated Driving Open Research https://eclipse.org/adore
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation
+ *
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * https://www.eclipse.org/legal/epl-2.0
  *
  * SPDX-License-Identifier: EPL-2.0
- *
- * Contributors:
- *    Mikkel Skov Maarssø
- *    Marko Mizdrak
  ********************************************************************************/
+
+#pragma once
 #include "dynamics/physical_vehicle_parameters.hpp"
 #include <eigen3/Eigen/Dense>
 #include <eigen3/Eigen/Eigen>
@@ -18,6 +20,19 @@ namespace adore
 {
 namespace dynamics
 {
+
+struct VehicleCommandLimits
+{
+  VehicleCommandLimits() {};
+  VehicleCommandLimits( double max_steer, double min_acc, double max_acc ) :
+    max_steering_angle( max_steer ),
+    max_acceleration( max_acc ),
+    min_acceleration( min_acc ) {};
+
+  double max_steering_angle = 0.58;
+  double max_acceleration   = 1.0;
+  double min_acceleration   = -2.0;
+};
 
 struct VehicleCommand
 {
