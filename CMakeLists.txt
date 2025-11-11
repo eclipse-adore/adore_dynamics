@@ -1,25 +1,29 @@
 cmake_minimum_required(VERSION 3.8)
 project(adore_dynamics VERSION 0.0.1 LANGUAGES CXX)
 
-# C++20 strict mode
+# -------------------------------------------------------------------
+# C++ configuration
+# -------------------------------------------------------------------
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Dependencies
-find_package(ament_cmake REQUIRED)
-
-find_package(OpenDrive REQUIRED)
-find_package(adore_math REQUIRED)
-find_package(adore_map REQUIRED)
-# find_package(nlohmann_json3 REQUIRED)
-
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
   add_compile_options(-O3)
 endif()
 
+# -------------------------------------------------------------------
+# Dependencies
+# -------------------------------------------------------------------
+find_package(ament_cmake REQUIRED)
+find_package(OpenDrive REQUIRED)
+find_package(adore_math REQUIRED)
+find_package(adore_map REQUIRED)
 
+# -------------------------------------------------------------------
+# Library
+# -------------------------------------------------------------------
 # Library sources
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS "src/*.cpp" "src/*.c")
 
@@ -33,14 +37,29 @@ target_include_directories(${PROJECT_NAME}
     $<INSTALL_INTERFACE:include>
 )
 
-# Link dependencies (PRIVATE visibility preferred)
+# Link dependencies
 target_link_libraries(${PROJECT_NAME}
   PUBLIC
     adore_math::adore_math
     adore_map::adore_map
 )
 
-# Export target to make find_package(adore_math) work in other packages
+# -------------------------------------------------------------------
+# Tests
+# -------------------------------------------------------------------
+if(BUILD_TESTING)
+  find_package(ament_cmake_gtest REQUIRED)
+
+  # Library under test, used by test/CMakeLists.txt
+  set(ADORE_TEST_LIB_TARGET ${PROJECT_NAME})
+
+  add_subdirectory(test)
+endif()
+
+# -------------------------------------------------------------------
+# Install & export
+# -------------------------------------------------------------------
+# Export target to make find_package(adore_dynamics) work in other packages
 install(TARGETS ${PROJECT_NAME}
   EXPORT export_${PROJECT_NAME}
   ARCHIVE DESTINATION lib
@@ -62,7 +81,7 @@ install(EXPORT export_${PROJECT_NAME}
 
 # ament exports for ROS 2 packages
 ament_export_include_directories(include)
-ament_export_dependencies( adore_math adore_map )
+ament_export_dependencies(adore_math adore_map)
 ament_export_targets(export_${PROJECT_NAME})
 
 ament_package()
