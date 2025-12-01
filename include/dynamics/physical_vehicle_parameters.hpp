@@ -43,8 +43,8 @@ struct PhysicalVehicleParameters
   double steering_ratio              = 1.0;
   double steering_angle_max          = 0.7;
   double steering_angle_min          = -0.7;
-  double acceleration_min            = 2.0;
-  double acceleration_max            = -2.0;
+  double acceleration_max            = 2.0;
+  double acceleration_min            = -2.0;
   double cornering_stiffness         = 63000.0;
   double brake_balance_front         = 0.6;
   double acceleration_balance_front  = 0.4;
