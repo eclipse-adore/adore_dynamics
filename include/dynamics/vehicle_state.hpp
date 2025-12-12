@@ -99,18 +99,19 @@ struct VehicleStateDynamic
   // Static member function to create from VehicleStateSimple
   static VehicleStateDynamic from_vehicle_state_simple( const VehicleStateSimple& simple_state );
 
-  double x              = 0.0;
-  double y              = 0.0;
-  double z              = 0.0;
-  double vx             = 0.0;
-  double vy             = 0.0;
-  double yaw_angle      = 0.0;
-  double yaw_rate       = 0.0;
-  double steering_angle = 0.0;
-  double steering_rate  = 0.0;
-  double ax             = 0.0;
-  double ay             = 0.0;
-  double time           = 0.0;
+  double      x              = 0.0;
+  double      y              = 0.0;
+  double      z              = 0.0;
+  double      vx             = 0.0;
+  double      vy             = 0.0;
+  double      yaw_angle      = 0.0;
+  double      yaw_rate       = 0.0;
+  double      steering_angle = 0.0;
+  double      steering_rate  = 0.0;
+  double      ax             = 0.0;
+  double      ay             = 0.0;
+  double      time           = 0.0;
+  std::string frame_id;
 
   // Friend declaration for operator<<
   friend std::ostream& operator<<( std::ostream& os, const VehicleStateDynamic& state );
