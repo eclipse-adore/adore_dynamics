@@ -55,6 +55,14 @@ struct PhysicalVehicleModel
       return kinematic_bicycle_model( state, p, command );
     };
   };
+
+  PhysicalVehicleModel( const PhysicalVehicleParameters& vehicle_parameters )
+  {
+    params       = vehicle_parameters;
+    motion_model = [p = params]( const VehicleStateDynamic& state, const VehicleCommand& command ) {
+      return kinematic_bicycle_model( state, p, command );
+    };
+  };
 };
 
 } // namespace dynamics
