@@ -19,7 +19,6 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(OpenDrive REQUIRED)
 find_package(adore_math REQUIRED)
-find_package(caches REQUIRED PATHS ${CMAKE_INSTALL_PREFIX}/../caches/lib/cmake/caches)
 find_package(adore_map REQUIRED)
 
 # -------------------------------------------------------------------
