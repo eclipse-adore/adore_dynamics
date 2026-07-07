@@ -21,12 +21,18 @@
 
 #include "dynamics/physical_vehicle_model.hpp"
 #include "dynamics/trajectory.hpp"
+#include "dynamics/maneuver_advice.hpp"
 #include "dynamics/vehicle_state.hpp"
 
 namespace adore
 {
 namespace dynamics
 {
+
+const static double SAME_PARTICIPANT_TIME_THRESSHOLD = 0.5; // [s]
+const static double SAME_PARTICIPANT_DISTANCE_THRESSHOLD = 0.5; // [m]
+const static double SAME_PARTICIPANT_HEADING_ANGLE_THRESSHOLD = 5.0; // [degrees]
+const static double SAME_PARTICIPANT_VELOCITY_THRESSHOLD = 2.0; // [m/s]
 
 enum TrafficParticipantClassification
 {
@@ -79,9 +85,11 @@ struct TrafficParticipant
   std::optional<Trajectory>    trajectory = std::nullopt; // Predicted or planned trajectory
   std::optional<Trajectory>    mrm_trajectory = std::nullopt; // mrm trajectory
   std::optional<map::Route>    route      = std::nullopt; // Route information
+  std::optional<ManeuverAdvice> maneuver_advice = std::nullopt; // manuever advice
 
   // calculate participant corners
   math::Polygon2d get_corners() const;
+  bool is_same_as( const TrafficParticipant& other_participant) const; 
 };
 
 struct TrafficParticipantSet

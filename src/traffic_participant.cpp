@@ -12,6 +12,9 @@
  ********************************************************************************/
 
 #include "dynamics/traffic_participant.hpp"
+#include <cstdlib>
+#include <adore_math/distance.h>
+
 
 namespace adore
 {
@@ -41,6 +44,28 @@ TrafficParticipant::get_corners() const
   }
 
   return corners;
+}
+
+bool 
+TrafficParticipant::is_same_as( const TrafficParticipant& other_participant) const
+{
+  double time_delta = std::abs( state.time - other_participant.state.time); 
+  if ( time_delta > SAME_PARTICIPANT_TIME_THRESSHOLD )
+    return false;
+  
+  double distance_delta = math::distance_2d(state, other_participant.state);
+  if ( distance_delta > SAME_PARTICIPANT_DISTANCE_THRESSHOLD )
+    return false;
+  
+  double heading_delta = std::abs(state.yaw_angle - other_participant.state.yaw_angle);
+  if ( heading_delta > SAME_PARTICIPANT_HEADING_ANGLE_THRESSHOLD )
+    return false;
+
+  double velocity_delta = std::abs(state.vx - other_participant.state.vx);
+  if ( velocity_delta > SAME_PARTICIPANT_VELOCITY_THRESSHOLD ) 
+    return false;
+  
+  return true;
 }
 
 void
